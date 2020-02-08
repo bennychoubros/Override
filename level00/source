@@ -1,0 +1,16 @@
+int main(){
+	int	ret;				//esp+0x1c
+	puts("*************************");
+	puts("* \t     -Level00 -\t\t  *");
+	puts("*************************");
+	printf("Password:");
+	__isoc99_scanf('%d',ret);
+	if (ret == 0x149c)
+	{
+		puts("\nAuthenticated!");
+		system("/bin/sh");
+	}
+	puts("\nInvalid Password!");
+	else main 121
+	return(1);
+}
