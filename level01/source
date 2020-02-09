@@ -1,0 +1,48 @@
+int verify_user_name()
+{
+	puts("verifying username....\n");
+	if (strncmp(a_user_name, "dat_wil",0x10))
+		return (1);
+	return (0);
+}
+
+int	verify_user_pass(char *str)
+{
+	if (strncmp(str,"admin",0x5))
+		return (1);
+	return (0);
+}
+
+int main(){
+
+	char	s1[]							[esp + 0x1c]	0xffffdd3c
+	static	short	stdin						.bss <stdin@@GLIBC_2_0>
+	static	char[]	a_user_name						.bss <a_user_name>
+	int	ret_pass;
+	memset(s1,0,0x10);
+	s1[0x40] = 0;	OR PUT 0  [esp + 0x5c] somewhere
+	puts("********* ADMIN LOGIN PROMPT *********");
+	printf("Enter Username: ");
+	fgets(a_user_name,0x100,stdin)
+	if (verify_user_name())
+	{
+		puts("nope, incorrect username...\n");
+		return 1;
+	}
+	puts("Enter Password: ");	
+	fgets(s1,0x64,stdin);
+	ret_pass =verify_user_pass(s1);
+	if (ret_pass == 0)
+	{
+	puts("nope, incorrect password...\n");
+	return (1);
+	}
+	if (ret_pass == 0)
+	{
+	}
+	else{
+	puts("nope, incorrect password...\n");
+	return (1);
+	}
+	return (0);
+}
