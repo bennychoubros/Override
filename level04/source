@@ -1,0 +1,63 @@
+void clear_stdin(void)
+{
+    char x = 0;
+    while(1)
+    {
+        x = getchar();
+        if(x == '\n' || x == EOF)
+            break;
+    }
+}
+
+
+unsigned int get_unum(void)
+{
+    unsigned int res = 0;
+    fflush(stdout);
+    scanf("%u", &res);
+    clear_stdin();
+    return res;
+}
+
+void prog_timeout(int sig)
+{
+  asm("mov $1, %eax;"
+      "mov $1, %ebx;"
+      "int $0x80");
+}
+#define ENABLE_TIMEOUT(_time) \
+  __attribute__ ((constructor)) void enable_timeout_cons() \
+  { \
+      signal(SIGALRM, prog_timeout); \
+      alarm(_time); \
+  }
+
+
+int main()
+{
+	char	str[];				//esp + 0x20
+	pid_t	pid;				//esp + 0xac					//0xffffdd7c
+	int	???					//esp + 0x1c				//0xffffdcec
+	pid = fork();
+	memset(str, 0,0x88);
+	if (pid == 0)
+	{
+		prctl(1,1);
+		ptrace(0,0,0,0);
+		puts("Give me some shellcode, k");
+		gets(str);
+	}
+	else
+	{	
+	main + 161
+	wait(0);
+	// oula un truc bizzare la !!
+	if ( != 0)
+	{
+		
+	}
+	main 228	
+	}
+	return ;
+	
+}
