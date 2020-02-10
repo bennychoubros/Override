@@ -21,7 +21,17 @@ unsigned int get_unum(void)
 
 void prog_timeout(int sig)
 {
+  asm("mov $1, %eax;"
+      "mov $1, %ebx;"
+      "int $0x80");
 }
+#define ENABLE_TIMEOUT(_time) \
+  __attribute__ ((constructor)) void enable_timeout_cons() \
+  { \
+      signal(SIGALRM, prog_timeout); \
+      alarm(_time); \
+  }
+
 
 int main()
 {
@@ -39,16 +49,15 @@ int main()
 	}
 	else
 	{	
+	main + 161
 	wait(0);
-		syscall = ptrace(????????);
-
-            /* filter out syscall 11, exec */
-            if(syscall == 11)
-            {
-                printf("no exec() for you\n");
-                kill(child, SIGKILL);
-                break;
-            }
+	// oula un truc bizzare la !!
+	if ( != 0)
+	{
+		
+	}
+	main 228	
 	}
 	return ;
+	
 }
