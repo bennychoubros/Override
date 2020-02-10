@@ -1,0 +1,19 @@
+Commencons par faire le source.
+
+On peut voir que Password attends un nombre car scanf prends en premier parametre un %d.
+Puis dans test 322424845 (0x1337d00d) est soustraite a notre valeur entree. Si ce resulat est entre 1 et 0x15.
+La valeur password est envoyer a decrpyt, si non ca sera la valeur d'un rand.
+
+Dans decrypt on trouve un XOR fait entre la valeur password et la chaine de caractere: "Q}|u`sfg~sf{}|a3". Le resultat de ce XOR doit rendre "Congratulations!" afin de lancer un shell via un system.
+
+Pour trouver le password il y a deux solution faire un script en tester les 15 valeurs du switchs.
+Ou faire un XOR entre "Congratulations!" et "Q}|u`sfg~sf{}|a3".
+Dans les deux cas on trouve : (int) 322424827
+
+
+level03@OverRide:~$ (echo "322424827" ; cat -) |./level03
+***********************************
+*		level03		**
+***********************************
+cat /home/users/level04/.pass
+kgv3tkEb9h2mLkRsPkXRfc2mHbjMxQzvb2FrgKkf

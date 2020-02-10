@@ -1,0 +1,67 @@
+void decrypt(char *str)
+{
+	char tmp[];
+	str2 = "Q}|u`sfg~sf{}|a3";
+	for (i=0; i<strlen(str); i++)
+	{
+		char tmp = str[i] ^ str2[i];
+		output[i] = tmp;
+	}
+	if (strcmp(tmp, "Congratulations!") == 0)
+	{
+		system("/bin/sh")
+	}
+	else
+	{
+		puts("\nInvalid Password");
+	}
+	return ;
+}
+
+
+void test(int input,int value)
+{
+	int new = input - value;
+	swicth (new)
+	{
+		case 0x1: decrypt(input);
+		case 0x2: decrypt(input);
+		case 0x3: decrypt(input);
+		case 0x4: decrypt(input);
+		case 0x5: decrypt(input);
+		case 0x6: decrypt(input);
+		case 0x7: decrypt(input);
+		case 0x8: decrypt(input);
+		case 0x9: decrypt(input);
+		case 0xa: decrypt(input);
+		case 0xb: decrypt(input);
+		case 0xc: decrypt(input);
+		case 0xd: decrypt(input);
+		case 0xe: decrypt(input);
+		case 0xf: decrypt(input);
+		case 0x10: decrypt(input);
+		case 0x11: decrypt(input);
+		case 0x12: decrypt(input);
+		case 0x13: decrypt(input);
+		case 0x14: decrypt(input);
+		case 0x15: decrypt(input);
+		default: decrypt(rand);
+	}
+	return ;
+}
+
+int main(int ac, char **av, char **env)
+{
+	char ret_scanf;				//esp + 0x1c		//0xffffdd7c
+	if (env == NULL)
+	{
+		esp + 0x4
+	}
+	srand(time(0));
+	puts("**********************");
+	puts("*\t\tlevel03\t\t**");
+	puts("**********************");
+	printf("Password:");
+	__isoc99_scanf("%d",str);
+	test(str,0x1337d00d)
+}
