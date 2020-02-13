@@ -1,0 +1,23 @@
+Creation du source !
+
+
+Apres la lecture du code il y a deux endroits ou on doit mettre des breakpoints. Le premier jsute apres le retour de ptrace afin de modifier la valeur de eax afin de continuer et le second a <auth + 286> (dernier cmp dans <auth>). afin de verifier a quoi correspond les valeurs qui sont comparees.
+
+On remarque que la valeur serial est comparee a une autre valeur generee par le login.
+
+Avec un login "A"*10 : La valeur comparee est 0x005f1ac1 = 6232769
+
+Donc il suffit de garder ce login avec le serial : 6232769
+
+BINGO !
+
+level06@OverRide:~$ (python -c 'print "A"*10';python -c 'print "6232769"' ; cat -) | ./level06
+***********************************
+*		level06		  *
+***********************************
+-> Enter Login: ***********************************
+***** NEW ACCOUNT DETECTED ********
+***********************************
+-> Enter Serial: Authenticated!
+cat /home/users/level07/.pass
+GbcPDRgsFK77LNnnuh7QyFYA2942Gp8yKj9KrWD8

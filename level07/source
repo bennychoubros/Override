@@ -1,0 +1,86 @@
+voidvoid		clear_stdin()
+{
+	....
+}
+
+int read_number(char *str1)
+{
+	unsigned int	index	=	0;							//ebp-0xc
+	printf(" Index: ");
+	index = get_unum();
+	printf(" Number at data[%u] is %u\n", index, str[index]);
+	return (0);
+}
+
+unsigned int get_unum()
+{
+	int	number = 0;
+	fflush(stdaout);
+	scanf("%u", number);
+	clear_stdin();
+	return (number);
+}
+
+int store_number(str1)
+{
+	unsigned int	nbr = 0;							//ebp-0x10
+	unsigned int	index = 1;							//ebp-0xc
+
+	printf(" Number: ");
+	nbr = get_unum();
+	printf(" Index: ");
+	index = get_unum();
+	if ((index % 3) == 0 || (nbr >> 0x18) == 0xb7)
+	{
+		print error ...
+		return 1;
+	}
+	str1[index] = nbr;
+	return 0;
+	
+}
+
+int main(int ac, char **av,char **env)
+{
+	void	*saved_av =		av;				//esp+0x1c
+	void	*save_env =		env;				//esp+0x18	
+	int	ref =			0xea11ad00			//esp+0x1cc
+		char	str[0x14] =			{0}			//esp+0x1b8
+	int	index 	=			0			//esp+0x1b4
+		char	str1[0x64]						//esp+0x24
+		int	idk							//esp+0x14
+
+		memset(str1,0,0x64);
+
+	while(*saved_av)
+	{
+		memset(saved_av,0,strlen(saved_av));
+		saved_av++;
+	}
+	while (*save_env)
+	{
+		memset(saved_env,0,strlen(saved_env));
+		saved_env++;
+	}
+	puts("----- Welcome to wil's crappy storage .....");		
+	while (1)
+	{
+		printf("Input command: ");
+		index = 1;
+		fgets(str,0x14,STDIN);
+		idk = (size_t)-1;
+		str + strlen(str) = 0;
+		if (str === store)
+			index =store_number(str1);	
+		else if (str === read)
+			read_number(str1);
+		else if (str === quit)
+			break;
+		if (index == 0)			<main+578>
+			printf(" Failed to do %s command\n",str);	
+		else
+			printf(" Completed %s command successfully\n", str);
+		memset(str,0,0x14);
+	}
+	return (0);
+}

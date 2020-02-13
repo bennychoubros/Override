@@ -1,0 +1,5 @@
+break read_number
+break main
+break *0x08048924
+break *0x08048961
+
