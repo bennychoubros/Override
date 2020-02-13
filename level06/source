@@ -1,0 +1,70 @@
+int auth(char *login, unsigned int serial)		//login = ebp+0x8
+{
+	int len	;					//ebp-	0xc	
+	int	ref_xor;				//ebp - 0x10
+	int	index; 					//ebp - 0x14 //bizzare +1
+	
+	login + strcspn(login, "\n") = 0x0;
+	len = strnlen(login, ' ');
+	eax = ebp-0xc
+	eax = 0
+	if (len <= 0x5)
+		return 0;
+	if (ptrace(0,0,1,0) == -1)
+	{
+		puts("- - ..");
+		puts("\033[31m| !! TAMPERING DETECTED !!  |");
+		puts("- - ..");
+		return (1);
+	}
+	ref_xor = (login[3] ^ 0x1337) + 0x5eeded
+	index = 0;
+	long tmp;
+	int week;
+	int strong
+	while (index < len)
+	{
+		if (login[index] <= 0x1f)
+		{
+			return 1;
+		}
+		tmp = (login[index] ^ ref_xor) * 0x88233b2b;
+		ecx = int week =	(int)tmp;
+		edx = int strong =	(int)tmp + 1;
+		eax = (((week - strong) / 2 + strong) / 1024) * 0x539
+		
+		edx - eax
+		ref_xor += strong - (((week - strong) / 2 + strong) / 1024) * 0x539; 		// ======= modulo.....
+		index += 1;
+	}
+	if (ref_xor == serial)
+		return (1);
+	return (0);
+}
+
+int main(int ac, char **av)
+{
+	char *av0	= av[0];			//esp+0x1c
+	void	something				//gs:0x14
+	char	login[];				//esp + 0x2c
+	unsigned int	serial;				//esp + 0x28
+	
+	if()
+	{
+	}
+	puts(************************************);
+	puts("*\t\tlevel06\t\t  *");
+	puts(************************************);
+	printf("-> Enter Login: ");
+	fgets(login,0x20,obj.stdin);
+	puts(************************************);
+	puts("***** NEW ACCOUNT DETECTED ********");
+	puts(************************************);
+	printf("-> Enter Serial: ");
+	scanf("%u",serial);				//Entier décimal non signé.
+	if (auth(login,serial))
+	{
+		system....
+	}
+
+}

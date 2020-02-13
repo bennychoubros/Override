@@ -1,0 +1,4 @@
+break *0x80487ba
+break *0x08048866
+break auth
+

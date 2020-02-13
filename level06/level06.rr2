@@ -1,0 +1,5 @@
+#!/usr/bin/env rarun2
+program=level06
+arg0="./level06"
+stdio=/dev/pts/0
+
