@@ -37,21 +37,19 @@ int store_number(str1)
 	}
 	str1[index] = nbr;
 	return 0;
-	
 }
 
 int main(int ac, char **av,char **env)
 {
-	void	*saved_av =		av;				//esp+0x1c
+	int	idk							//esp+0x14
 	void	*save_env =		env;				//esp+0x18	
-	int	ref =			0xea11ad00			//esp+0x1cc
-		char	str[0x14] =			{0}			//esp+0x1b8
+	void	*saved_av =		av;				//esp+0x1c
 	int	index 	=			0			//esp+0x1b4
-		char	str1[0x64]						//esp+0x24
-		int	idk							//esp+0x14
+	char	cmd[0x14] =			{0}			//esp+0x1b8
+	int	ref =			0xea11ad00			//esp+0x1cc
+	char	str1[0x64]						//esp+0x24
 
-		memset(str1,0,0x64);
-
+	memset(str1,0,0x64);
 	while(*saved_av)
 	{
 		memset(saved_av,0,strlen(saved_av));
@@ -67,20 +65,20 @@ int main(int ac, char **av,char **env)
 	{
 		printf("Input command: ");
 		index = 1;
-		fgets(str,0x14,STDIN);
+		fgets(cmd,0x14,STDIN);
 		idk = (size_t)-1;
 		str + strlen(str) = 0;
-		if (str === store)
+		if (cmd === store)
 			index =store_number(str1);	
-		else if (str === read)
+		else if (cmd === read)
 			read_number(str1);
-		else if (str === quit)
+		else if (cmd === quit)
 			break;
 		if (index == 0)			<main+578>
-			printf(" Failed to do %s command\n",str);	
+			printf(" Failed to do %s command\n",cmd);	
 		else
-			printf(" Completed %s command successfully\n", str);
-		memset(str,0,0x14);
+			printf(" Completed %s command successfully\n", cmd);
+		memset(cmd,0,0x14);
 	}
 	return (0);
 }
