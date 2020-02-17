@@ -1,3 +1,4 @@
 break main
-break log_wrapper
+break *0x0000000000400b09
+break *0x400c05
 

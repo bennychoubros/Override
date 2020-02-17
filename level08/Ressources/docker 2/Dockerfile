@@ -30,3 +30,4 @@ RUN git clone https://github.com/radareorg/radare2.git
 RUN /radare2/sys/install.sh
 
 ENTRYPOINT ["/bin/zsh"]
+

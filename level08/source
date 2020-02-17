@@ -1,11 +1,11 @@
 int	log_wrapper(int fd,char *const,char *av1)
 {
 	int	s_fd 	=fd				//	rbp - 0x118
-	void*	s_const = const				//	rbp - 0x120
-	char*	s_av1	= av1				//	rbp - 0x128
-	long	a	=0x104be53e4d2bc200;		//	rbp - 0x8
+		void*	s_const = const				//	rbp - 0x120
+		char*	s_av1	= av1				//	rbp - 0x128
+		long	a	=0x104be53e4d2bc200;		//	rbp - 0x8
 	char	*dest					//	rbp - 0x110
-	long	b;					//	rbp - 0x130
+		long	b;					//	rbp - 0x130
 
 	strcpy(dest,"Starting back up: ");
 	snprintf(dest + strlen(dest) - 1,strlen(dest),av1,(size_t) -1 + strlen(dest));
@@ -17,33 +17,45 @@ int	log_wrapper(int fd,char *const,char *av1)
 
 int	main(int ac, char **av,char **env)
 {	
-	int	s_ac	=	1;			//	rbp - 0x94
 	char	**s_av	=	av;			//	rbp - 0xa0
-	long	value	=	0x104be53e4d2bc200	//	rbp - 0x8
-	rax = 0x104be53e4d2bc200;
-
-	char	a	=	0xff (-1)			//	rbp - 0x71---	Maybe link
-	long	a2	=	(size_t)-1		//	rbp - 0x78---
+	int	s_ac;					//	rbp - 0x94
 	int	fd_open;				//	rbp - 0x88
-	
-	if (s_ac == 2)
-	{
-		
-	}
-	else
-	{
+	int	fd2_open;				//	rbp - 0x80
+	int	fd3_open = (size_t)-1;				//	rbp - 0x78
+	int	ret_fgets = -1;				//	rbp - 0x71
+
+	if (s_ac != 2)
 		printf("Usage: %s filename\n", av[0]);
-		fd_open = fopen("./backups/.log","w");	
-		if (fd_open == 0)
-		{
-			printf()
-			exit();
-		}
-		rdx = av[1]
-		rax = fd_open 
-		esi = "Starting back up: "
-		log_wrapper(fd_open,"Starting back up: ",av[1]);
-		
+	fd_open = fopen("./backups/.log","w");	
+	if (fd_open == 0)
+	{
+		printf("ERROR: Failed to open %s\n","./backups/.log");
+		exit(1);
 	}
+	log_wrapper(fd_open,"Starting back up: ",av[1]);
+	fd2_open = fopen(av[1],"r");
+	if (fd2 <= 0)
+	{
+		printf("ERROR: Failed to open %s\n", STRING_SENDED_FOPEN);
+		exit(1);
+	}
+	memcpy(buffer,"./backups");
+	strncat(buffer ,av[1], 99 - strlen(buffer));
+	fd3_open = open(buffer,0xc1.0x1b0);
+	if (fd3_open <= 0)
+	{
+		printf("ERROR: Failed to open %s\n","./backups/");
+		exit(1);
+
+	}
+	while ((ret_fgetc =fgetc(fd_2open)) > 0)
+	{
+		write(fd3_open,ret_fgetc,1);
+	}
+	log_wrapper(fd_open,"Finished back up ",av[1]);
+	flclose(fd2_open);
+	close(fd3_open)
+		if (saved_adr ^ key != 0)
+			stack_chk_fail();
 	return (0);
 }
