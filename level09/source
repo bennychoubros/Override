@@ -1,0 +1,54 @@
+void	set_msg(char *buffer)
+{
+	char	*dest															//rbp-0x408
+	char	*src															//rbp-0x400
+
+	dest = buffer;
+	memset(src,1024,0);
+	puts(">: Msg @Unix-Dude");
+	printf(">>: ");
+	fgets(src, 1024,stdin)
+	eax = rdx= dest[180]
+	strncpy(dest,src,dest[180]);
+	return ;
+}
+
+void set_username(char *buffer)
+{
+	int64_t			s_buffer;													//rbp-0x98
+	char*			s;															//rbp-0x90
+	signed int64_t	index;													//rvp-0x4
+
+	memset(s,128,0);
+	puts(">: Enter your username");
+	printf('>>: ');
+	fgets(s,128,stdin);
+	ret_fgets = 0;
+	while (ret_fgets < 40 && s[index] != 0)
+	{
+		buffer[index] = s[index];
+		index++;
+	}
+	printf(">: Welcome, %s",buffer);
+	return;
+}
+
+void handle_mag()
+{
+	char	buffer[];												//rbp-0xc0
+	int64_t	var_ch													//rbp-0xc
+	
+	memset(buffer + 0x8c, 0, 40);
+	var_ch = 0x8c
+	set_username(buffer);
+	set_msg(buffer);
+	puts("_Msg_sent");
+	return;
+}
+
+int main()
+{
+	puts("---\n|\t~Welcome to l33t-m$n ~\tv1337\t|\n----");
+	handle_mag();
+	return (0);
+}
