@@ -1,14 +1,15 @@
 int	log_wrapper(int fd,char *const,char *av1)
 {
-	int	s_fd 	=fd				//	rbp - 0x118
-		void*	s_const = const				//	rbp - 0x120
-		char*	s_av1	= av1				//	rbp - 0x128
-		long	a	=0x104be53e4d2bc200;		//	rbp - 0x8
-	char	*dest					//	rbp - 0x110
-		long	b;					//	rbp - 0x130
+	int	s_fd 	=fd;				//	rbp - 0x118
+	void*	s_const = const;				//	rbp - 0x120
+	char*	s_av1	= av1;				//	rbp - 0x128
+	long	a	=0x104be53e4d2bc200;		//	rbp - 0x8
+	char	*dest;					//	rbp - 0x110
+	long	b;					//	rbp - 0x130
 
-	strcpy(dest,"Starting back up: ");
-	snprintf(dest + strlen(dest) - 1,strlen(dest),av1,(size_t) -1 + strlen(dest));
+	strcpy(dest,const);
+
+	snprintf(dest + strlen(dest),(size_t) -1 + strlen(dest));
 	dest + strcspn(dest, "\n") = 0;
 	fprintf(fd,"LOG: %s\n",dest);
 	check_stack();
