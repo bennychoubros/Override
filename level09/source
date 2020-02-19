@@ -1,15 +1,14 @@
 void	set_msg(char *buffer)
 {
-	char	*dest															//rbp-0x408
 	char	*src															//rbp-0x400
+	char	*dest															//rbp-0x408
 
 	dest = buffer;
 	memset(src,1024,0);
 	puts(">: Msg @Unix-Dude");
 	printf(">>: ");
 	fgets(src, 1024,stdin)
-	eax = rdx= dest[180]
-	strncpy(dest,src,dest[180]);
+	strncpy(buffer,src,buffer[180]);
 	return ;
 }
 
@@ -23,17 +22,17 @@ void set_username(char *buffer)
 	puts(">: Enter your username");
 	printf('>>: ');
 	fgets(s,128,stdin);
-	ret_fgets = 0;
+	index = 0;
 	while (ret_fgets < 40 && s[index] != 0)
 	{
-		buffer[index] = s[index];
+		buffer[index + 0x8c] = s[index];
 		index++;
 	}
 	printf(">: Welcome, %s",buffer);
 	return;
 }
 
-void handle_mag()
+void handle_msg()
 {
 	char	buffer[];												//rbp-0xc0
 	int64_t	var_ch													//rbp-0xc

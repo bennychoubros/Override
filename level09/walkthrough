@@ -1,0 +1,31 @@
+Creation du source ! Dernier niveau ..
+
+On creant le source on peut s'apercevoir que dans la function set_msg() la size pour la function strncpy() vient d'un endroit tres etrange !
+Pour recuperer la valeur, le programme va ajouter 180 a l'adresse de notre buffer et recuperer la valeur a cette adresse la.
+
+Je vais utiliser les noms de variables de mon source afin d'expliquer, le probleme avec ce programme. On trouve un declation d'un buffer dans la function handle_msg a rbp-0xc0.Cette variable est donnee en parametre pour la functin set_username. L'input de l'user va etre copie jusqu'a 40 caractere a partir de buffer + 0x8c.
+Revenons dans la fonction handle_msg. La function set_username va ecricre jusqu'a  buffer + (0x8c + 40 = 180).
+Dans la function set_msg, la valeur (size pour la function strncpy) est recuperer a buffer + 180 ! 🤗
+
+Donc on peut varier la longueur de notre strncpy afin d'aller ecraser une sauvgarde de RIP par exemple.
+
+Placons nous maintenant dansla function set_msg. Le premier argument de la function strncpy est une variable provenons d'une declaration faite dans la function handle_msg(Le buffer).
+
+Dans ce programme la stack n est pas executable .. Donc avec radare2 on va rechercher une function ou il y aura un possible system ou autre. On trouve une fonction avec un tres special 😓, "secret_backdoor" AHAHAHHA
+Donc on va pointer notre ret sur le debut de cette fonction.
+Pour recuperer l'adresse je lance mon programme je fais un break et je check son adresse dans gdb grace a pdisass secert_backdoor (0x000055555555488c)
+
+Donc dest seras notr variables ou on pourra ecrire, il se trouve a rbp - 0xc0, la sauvgarde de EIP se trouve a rbp + 0x8. Donc pour l'ecraser il faut un offset de 0xc8. Donc pour l'ecraser il faudra rajouter 0x8. OFFSET =  0xd0
+
+Donc on a notre taille pour copier 0xc8 a mettre a l'index buffer + 0x8c + (40 caracteres);
+Puis on a besoin d'une seconde chaine avec un OFFSET a 0xc8, avec notre adresse de la function secert_backdoor.
+
+level09@OverRide:~$ (python -c 'print "A"*40 + "\xd0"'; python -c 'print "B"*0xc8 + "\x8c\x48\x55\x55\x55\x55\x00\x00"'; cat -) | ./level09
+--------------------------------------------
+|   ~Welcome to l33t-m$n ~    v1337        |
+--------------------------------------------
+>: Enter your username
+>>: >: Welcome, AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA�>: Msg @Unix-Dude
+>>: >: Msg sent!
+cat /home/users/end/.pass
+j4AunAPDXaJxxWjYEUxpanmvSgRDV3tpA5BEaBuE
