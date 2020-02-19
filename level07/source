@@ -1,49 +1,84 @@
-int	log_wrapper(int fd,char *const,char *av1)
+voidvoid		clear_stdin()
 {
-	int	s_fd 	=fd				//	rbp - 0x118
-	void*	s_const = const				//	rbp - 0x120
-	char*	s_av1	= av1				//	rbp - 0x128
-	long	a	=0x104be53e4d2bc200;		//	rbp - 0x8
-	char	*dest					//	rbp - 0x110
-	long	b;					//	rbp - 0x130
-
-	strcpy(dest,"Starting back up: ");
-	snprintf(dest + strlen(dest) - 1,strlen(dest),av1,(size_t) -1 + strlen(dest));
-	dest + strcspn(dest, "\n") = 0;
-	fprintf(fd,"LOG: %s\n",dest);
-	check_stack();
-	return ;
+	....
 }
 
-int	main(int ac, char **av,char **env)
-{	
-	int	s_ac	=	1;			//	rbp - 0x94
-	char	**s_av	=	av;			//	rbp - 0xa0
-	long	value	=	0x104be53e4d2bc200	//	rbp - 0x8
-	rax = 0x104be53e4d2bc200;
+int read_number(char *str1)
+{
+	unsigned int	index	=	0;							//ebp-0xc
+	printf(" Index: ");
+	index = get_unum();
+	printf(" Number at data[%u] is %u\n", index, str[index]);
+	return (0);
+}
 
-	char	a	=	0xff (-1)			//	rbp - 0x71---	Maybe link
-	long	a2	=	(size_t)-1		//	rbp - 0x78---
-	int	fd_open;				//	rbp - 0x88
-	
-	if (s_ac == 2)
+unsigned int get_unum()
+{
+	int	number = 0;
+	fflush(stdaout);
+	scanf("%u", number);
+	clear_stdin();
+	return (number);
+}
+
+int store_number(str1)
+{
+	unsigned int	nbr = 0;							//ebp-0x10
+	unsigned int	index = 1;							//ebp-0xc
+
+	printf(" Number: ");
+	nbr = get_unum();
+	printf(" Index: ");
+	index = get_unum();
+	if ((index % 3) == 0 || (nbr >> 0x18) == 0xb7)
 	{
-		
+		print error ...
+		return 1;
 	}
-	else
+	str1[index] = nbr;
+	return 0;
+}
+
+int main(int ac, char **av,char **env)
+{
+	int	idk							//esp+0x14
+	void	*save_env =		env;				//esp+0x18	
+	void	*saved_av =		av;				//esp+0x1c
+	int	index 	=			0			//esp+0x1b4
+	char	cmd[0x14] =			{0}			//esp+0x1b8
+	int	ref =			0xea11ad00			//esp+0x1cc
+	char	str1[0x64]						//esp+0x24
+
+	memset(str1,0,0x64);
+	while(*saved_av)
 	{
-		printf("Usage: %s filename\n", av[0]);
-		fd_open = fopen("./backups/.log","w");	
-		if (fd_open == 0)
-		{
-			printf()
-			exit();
-		}
-		rdx = av[1]
-		rax = fd_open 
-		esi = "Starting back up: "
-		log_wrapper(fd_open,"Starting back up: ",av[1]);
-		
+		memset(saved_av,0,strlen(saved_av));
+		saved_av++;
+	}
+	while (*save_env)
+	{
+		memset(saved_env,0,strlen(saved_env));
+		saved_env++;
+	}
+	puts("----- Welcome to wil's crappy storage .....");		
+	while (1)
+	{
+		printf("Input command: ");
+		index = 1;
+		fgets(cmd,0x14,STDIN);
+		idk = (size_t)-1;
+		str + strlen(str) = 0;
+		if (cmd === store)
+			index =store_number(str1);	
+		else if (cmd === read)
+			read_number(str1);
+		else if (cmd === quit)
+			break;
+		if (index == 0)			<main+578>
+			printf(" Failed to do %s command\n",cmd);	
+		else
+			printf(" Completed %s command successfully\n", cmd);
+		memset(cmd,0,0x14);
 	}
 	return (0);
 }

@@ -39,7 +39,9 @@ int main()
 	}
 	else
 	{	
-	wait(0);
+	while (1)
+	{
+		wait(0);
 		syscall = ptrace(????????);
 
             /* filter out syscall 11, exec */
